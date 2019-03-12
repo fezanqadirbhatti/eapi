@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Category\Category;
+use App\Http\Resources\Category\Category as CategoryResource;
 use App\Model\Product;
+use App\Http\Resources\Product\Product as ProductResource;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -14,7 +17,23 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return  ProductResource::collection(Product::all());
+    }
+
+    /**
+     * @param CategoryResource $category
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function getByCategoryId($id)
+    {
+        $products = Product::all()->reject(function($item) use ($id){
+            return $item->category_id != $id;
+        })
+            ->map(function($item){
+                return $item;
+            });
+
+        return ProductResource::collection($products);
     }
 
     /**
@@ -46,7 +65,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return new ProductResource($product);
     }
 
     /**
