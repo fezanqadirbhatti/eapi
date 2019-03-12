@@ -47,9 +47,9 @@ class ReviewController extends Controller
      * @param  \App\Model\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function show(Review $review)
+    public function show(Product $product, Review $review)
     {
-        //
+        return new ReviewResource($review);
     }
 
     /**
