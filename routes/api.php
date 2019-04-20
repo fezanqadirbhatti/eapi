@@ -17,7 +17,7 @@ Route::get('/user', function () {
     return \App\Http\Resources\User::collection(\App\User::all());
 });
 Route::apiResource('/category', 'CategoryController');
-Route::apiResource('/products','ProductController');
+Route::apiResource('/product','ProductController');
 Route::prefix('products')->group(function() {
     Route::get('/category/{category}','ProductController@getByCategoryId')->name('product-category');
     Route::apiResource('/{product}/reviews','ReviewController');

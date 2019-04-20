@@ -23,7 +23,7 @@ class Product extends JsonResource
             'stock'     => $this->stock,
             'discount'  => $this->discount. '%',
             'discounted_price' => round($this->price - (($this->price / 100) * $this->discount), 2),
-            'links'      => [
+            'links'     => [
                 'reviews' => route('reviews.index', $this->id),
                 'product_category' => route('product-category', $this->category->id)
             ]
